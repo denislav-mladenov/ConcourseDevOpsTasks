@@ -1,0 +1,24 @@
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/denislav-mladenov/ConcourseDevOpsTasks.git
+
+jobs:
+- name: hello-concourse-job
+  plan:
+  # Add a get step referencing the resource
+  - get: repo
+  - task: hello-concourse-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: python
+          tag: "3.9"
+      inputs:
+      - name: repo    
+      run:
+        path: python3
+        args: ["repo/hello-concourse.py"]
