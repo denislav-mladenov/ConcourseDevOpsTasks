@@ -4,10 +4,16 @@ resources:
   source:
     uri: https://github.com/denislav-mladenov/ConcourseDevOpsTasks.git
 
+- name: timer
+  type: time
+  source:
+    interval: 5m
+
 jobs:
 - name: hello-concourse-job
   plan:
-  # Add a get step referencing the resource
+  - get: timer
+    trigger: true
   - get: repo
   - task: hello-concourse-task
     config:
