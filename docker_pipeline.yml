@@ -14,10 +14,8 @@ jobs:
   plan:
   - get: timer
     trigger: true
-	version: every
   - get: repo
     trigger: true
-	version: every
   - task: hello-concourse-task
     config:
       platform: linux
@@ -25,9 +23,9 @@ jobs:
         type: registry-image
         source:
           repository: l0patar/json-yaml-processor
-          tag: "3.9"
+          tag: latest  
       inputs:
-      - name: repo    
+      - name: repo
       run:
         path: python3
         args: ["repo/hello-concourse.py"]
