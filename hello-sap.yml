@@ -21,8 +21,8 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: python
-          tag: "3.9"
+          repository: l0patar/json-yaml-processor
+          tag: latest
       inputs:
       - name: repo    
       run:
