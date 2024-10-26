@@ -1,0 +1,33 @@
+resources:
+- name: repo
+  type: git
+  source:
+    uri: https://github.com/denislav-mladenov/ConcourseDevOpsTasks.git
+
+- name: timer
+  type: time
+  source:
+    interval: 5m
+
+jobs:
+- name: hello-concourse-job
+  plan:
+  - get: timer
+    trigger: true
+	version: every
+  - get: repo
+    trigger: true
+	version: every
+  - task: hello-concourse-task
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: l0patar/json-yaml-processor
+          tag: "3.9"
+      inputs:
+      - name: repo    
+      run:
+        path: python3
+        args: ["repo/hello-concourse.py"]
